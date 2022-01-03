@@ -2,7 +2,8 @@
 
 namespace ProtoneMedia\LaravelViewi;
 
-use ProtoneMedia\LaravelViewi\Commands\LaravelViewiCommand;
+use ProtoneMedia\LaravelViewi\Commands\ClearBuildAndPublicAssets;
+use ProtoneMedia\LaravelViewi\Commands\InstallIntoApp;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,6 +19,7 @@ class LaravelViewiServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-viewi')
             ->hasConfigFile()
-            ->hasCommand(LaravelViewiCommand::class);
+            ->hasCommand(ClearBuildAndPublicAssets::class)
+            ->hasCommand(InstallIntoApp::class);
     }
 }

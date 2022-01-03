@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Viewi\PageEngine;
 
-class LaravelViewiCommand extends Command
+class ClearBuildAndPublicAssets extends Command
 {
     public $signature = 'viewi:clear';
 
@@ -15,14 +15,16 @@ class LaravelViewiCommand extends Command
     public function handle(): int
     {
         (new Filesystem)->deleteDirectory(
-            config('laravel-viewi::' . PageEngine::SERVER_BUILD_DIR),
+            config('viewi.' . PageEngine::SERVER_BUILD_DIR),
             $preserve = false
         );
 
         (new Filesystem)->deleteDirectory(
-            config('laravel-viewi::' . PageEngine::PUBLIC_BUILD_DIR) . '/viewi-build',
+            config('viewi.' . PageEngine::PUBLIC_ROOT_DIR) . '/viewi-build',
             $preserve = false
         );
+
+        $this->info("Cleared!");
 
         return self::SUCCESS;
     }

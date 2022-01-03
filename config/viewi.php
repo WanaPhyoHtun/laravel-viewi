@@ -3,6 +3,8 @@
 use Viewi\PageEngine;
 
 return [
+    'components_namespace' => 'App\\Components\\',
+
     /**
      * Location of components source code
      */
@@ -11,7 +13,7 @@ return [
     /**
      * Target directory of compiled php components
      */
-    PageEngine::SERVER_BUILD_DIR => app_path('build'),
+    PageEngine::SERVER_BUILD_DIR => storage_path('viewi'),
 
     /**
      * Public root folder of application (location of index.php)

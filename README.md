@@ -5,7 +5,17 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/protonemedia/laravel-viewi/Check%20&%20fix%20styling?label=code%20style)](https://github.com/protonemedia/laravel-viewi/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/protonemedia/laravel-viewi.svg?style=flat-square)](https://packagist.org/packages/protonemedia/laravel-viewi)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+[Viewi](https://viewi.net) for Laravel: Build full-stack and completely reactive user interfaces with PHP.
+
+* Already familiar HTML.
+* PHP dynamic data state.
+* Efficient SSR/CSR.
+* SEO friendly.
+* No HTML over "the wire".
+* The same code for server and front-end sides.
+* Speed up your development process.
+* Turn your components into highly-optimized JavaScript code.
+* Build mobile and desktop applications (Planned).
 
 ## Launcher 🚀
 
@@ -23,10 +33,10 @@ You can install the package via composer:
 composer require protonemedia/laravel-viewi
 ```
 
-You can publish the config file with:
+Install the example components and routes:
 
 ```bash
-php artisan vendor:publish --tag="laravel-viewi-config"
+php viewi:install
 ```
 
 Add the `ViewiMiddleware` to the `web` group:
@@ -36,11 +46,17 @@ class Kernel extends HttpKernel
 {
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\ViewiMiddleware::class,
+            \ProtoneMedia\LaravelViewi\Middleware\ViewiMiddleware::class,
             ...
         ],
     ];
 }
+```
+
+Optionally, you can publish the config file with:
+
+```bash
+php artisan vendor:publish --tag="viewi-config"
 ```
 
 ## Usage
@@ -50,14 +66,18 @@ Add Viewi components as regular Laravel routes, for example, in `web.php`:
 ```php
 use App\Components\Views\Home\HomePage;
 use App\Components\Views\NotFound\NotFoundPage;
-use App\Components\Views\Pages\CounterPage;
 use App\Components\Views\Pages\TodoAppPage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomePage::class);
-Route::get('/counter', CounterPage::class);
 Route::get('/todo', TodoAppPage::class);
 Route::get('*', NotFoundPage::class);
+```
+
+Clear the build and public assets:
+
+```bash
+php artisan viewi:clear
 ```
 
 ## Testing
