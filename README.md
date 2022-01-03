@@ -1,69 +1,63 @@
-# :package_description
+# [WIP] Laravel Viewi
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/run-tests?label=tests)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/Check%20&%20fix%20styling?label=code%20style)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/protonemedia/laravel-viewi.svg?style=flat-square)](https://packagist.org/packages/protonemedia/laravel-viewi)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/protonemedia/laravel-viewi/run-tests?label=tests)](https://github.com/protonemedia/laravel-viewi/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/protonemedia/laravel-viewi/Check%20&%20fix%20styling?label=code%20style)](https://github.com/protonemedia/laravel-viewi/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/protonemedia/laravel-viewi.svg?style=flat-square)](https://packagist.org/packages/protonemedia/laravel-viewi)
 
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this skeleton
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files
-3. Remove this block of text.
-4. Have fun creating your package.
-5. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
-## Support us
+## Launcher 🚀
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
+Hey! We've built a Docker-based deployment tool to launch apps and sites fully containerized. You can find all features and the roadmap on our [website](https://uselauncher.com), and we are on [Twitter](https://twitter.com/uselauncher) as well!
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+## Support
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+We proudly support the community by developing Laravel packages and giving them away for free. Keeping track of issues and pull requests takes time, but we're happy to help! If this package saves you time or if you're relying on it professionally, please consider [supporting the maintenance and development](https://github.com/sponsors/pascalbaljet).
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
-php artisan migrate
+composer require protonemedia/laravel-viewi
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="laravel-viewi-config"
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag=":package_slug-views"
-```
-
-This is the contents of the published config file:
+Add the `ViewiMiddleware` to the `web` group:
 
 ```php
-return [
-];
+class Kernel extends HttpKernel
+{
+    protected $middlewareGroups = [
+        'web' => [
+            \App\Http\Middleware\ViewiMiddleware::class,
+            ...
+        ],
+    ];
+}
 ```
 
 ## Usage
 
+Add Viewi components as regular Laravel routes, for example, in `web.php`:
+
 ```php
-$skeleton = new VendorName\Skeleton();
-echo $skeleton->echoPhrase('Hello, VendorName!');
+use App\Components\Views\Home\HomePage;
+use App\Components\Views\NotFound\NotFoundPage;
+use App\Components\Views\Pages\CounterPage;
+use App\Components\Views\Pages\TodoAppPage;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', HomePage::class);
+Route::get('/counter', CounterPage::class);
+Route::get('/todo', TodoAppPage::class);
+Route::get('*', NotFoundPage::class);
 ```
 
 ## Testing
@@ -86,7 +80,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Pascal Baljet](https://github.com/pascalbaljet)
 - [All Contributors](../../contributors)
 
 ## License
