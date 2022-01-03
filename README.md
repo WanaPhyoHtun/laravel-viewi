@@ -36,7 +36,7 @@ composer require protonemedia/laravel-viewi
 Install the example components and routes:
 
 ```bash
-php viewi:install
+php artisan viewi:install
 ```
 
 Add the `ViewiMiddleware` to the `web` group:
